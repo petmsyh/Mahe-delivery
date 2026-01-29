@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../core/constants/route_constants.dart';
-import '../../../shared/providers/auth_provider.dart';
+import '../../../shared/widgets/category_card.dart';
 
 class CustomerHomeScreen extends StatelessWidget {
   const CustomerHomeScreen({super.key});
@@ -54,10 +53,10 @@ class CustomerHomeScreen extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _buildCategoryCard('Pizza', Icons.local_pizza),
-                  _buildCategoryCard('Burger', Icons.lunch_dining),
-                  _buildCategoryCard('Drinks', Icons.local_drink),
-                  _buildCategoryCard('Dessert', Icons.cake),
+                  CategoryCard(name: 'Pizza', icon: Icons.local_pizza),
+                  CategoryCard(name: 'Burger', icon: Icons.lunch_dining),
+                  CategoryCard(name: 'Drinks', icon: Icons.local_drink),
+                  CategoryCard(name: 'Dessert', icon: Icons.cake),
                 ],
               ),
             ),
@@ -121,25 +120,6 @@ class CustomerHomeScreen extends StatelessWidget {
             Navigator.pushNamed(context, RouteConstants.customerProfile);
           }
         },
-      ),
-    );
-  }
-
-  Widget _buildCategoryCard(String name, IconData icon) {
-    return Container(
-      width: 100,
-      margin: const EdgeInsets.only(right: 12),
-      decoration: BoxDecoration(
-        color: Colors.orange[50],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 40, color: Colors.orange),
-          const SizedBox(height: 8),
-          Text(name, style: const TextStyle(fontWeight: FontWeight.w500)),
-        ],
       ),
     );
   }

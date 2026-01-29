@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/constants/firebase_constants.dart';
+import '../../../shared/widgets/delivery_settings_card.dart';
+import '../../../shared/widgets/config_menu_card.dart';
 
 class AdminConfigScreen extends StatefulWidget {
   const AdminConfigScreen({super.key});
@@ -85,74 +87,28 @@ class _AdminConfigScreenState extends State<AdminConfigScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Delivery Settings',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _deliveryFeeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Default Delivery Fee (\$)',
-                      prefixIcon: Icon(Icons.attach_money),
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _minOrderController,
-                    decoration: const InputDecoration(
-                      labelText: 'Minimum Order Amount (\$)',
-                      prefixIcon: Icon(Icons.shopping_bag),
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                ],
-              ),
-            ),
+          DeliverySettingsCard(
+            deliveryFeeController: _deliveryFeeController,
+            minOrderController: _minOrderController,
           ),
           const SizedBox(height: 16),
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.location_on),
-              title: const Text('Service Areas'),
-              subtitle: const Text('Manage delivery service areas'),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                // Navigate to service areas
-              },
-            ),
+          ConfigMenuCard(
+            icon: Icons.location_on,
+            title: 'Service Areas',
+            subtitle: 'Manage delivery service areas',
+            onTap: () {},
           ),
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.schedule),
-              title: const Text('Operating Hours'),
-              subtitle: const Text('Set restaurant operating hours'),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                // Navigate to operating hours
-              },
-            ),
+          ConfigMenuCard(
+            icon: Icons.schedule,
+            title: 'Operating Hours',
+            subtitle: 'Set restaurant operating hours',
+            onTap: () {},
           ),
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.category),
-              title: const Text('Categories'),
-              subtitle: const Text('Manage food categories'),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                // Navigate to categories
-              },
-            ),
+          ConfigMenuCard(
+            icon: Icons.category,
+            title: 'Categories',
+            subtitle: 'Manage food categories',
+            onTap: () {},
           ),
           const SizedBox(height: 24),
           SizedBox(

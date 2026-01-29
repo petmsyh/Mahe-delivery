@@ -51,20 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Icon(
-                  Icons.delivery_dining,
-                  size: 80,
-                  color: Colors.orange,
-                ),
+                const Icon(Icons.delivery_dining, size: 80, color: Colors.orange),
                 const SizedBox(height: 20),
-                const Text(
-                  'Welcome',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const Text('Welcome', textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 40),
                 TextFormField(
                   controller: _phoneController,
@@ -87,25 +77,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     UserRole.customer,
                     UserRole.vendor,
                     UserRole.rider,
-                  ].map((role) {
-                    return DropdownMenuItem(
-                      value: role,
-                      child: Text(role.displayName),
-                    );
-                  }).toList(),
+                  ].map((role) => DropdownMenuItem(
+                    value: role,
+                    child: Text(role.displayName),
+                  )).toList(),
                   onChanged: (value) {
-                    if (value != null) {
-                      setState(() {
-                        _selectedRole = value;
-                      });
-                    }
+                    if (value != null) setState(() => _selectedRole = value);
                   },
                 ),
                 const SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: _sendOTP,
-                  child: const Text('Send OTP'),
-                ),
+                ElevatedButton(onPressed: _sendOTP, child: const Text('Send OTP')),
               ],
             ),
           ),

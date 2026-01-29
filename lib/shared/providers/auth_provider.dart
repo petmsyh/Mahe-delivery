@@ -39,22 +39,26 @@ class AuthProvider extends ChangeNotifier {
     try {
       await _authService.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        codeSent: (verificationId) {
-          _verificationId = verificationId;
-          _isLoading = false;
-          notifyListeners();
-        },
-        verificationFailed: (error) {
-          _error = error;
-          _isLoading = false;
-          notifyListeners();
-        },
+        codeSent: _onCodeSent,
+        verificationFailed: _onVerificationFailed,
       );
     } catch (e) {
       _error = e.toString();
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void _onCodeSent(String verificationId) {
+    _verificationId = verificationId;
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  void _onVerificationFailed(String error) {
+    _error = error;
+    _isLoading = false;
+    notifyListeners();
   }
 
   Future<bool> verifyOTP(String otp, UserRole role) async {
@@ -73,31 +77,32 @@ class AuthProvider extends ChangeNotifier {
         verificationId: _verificationId!,
         smsCode: otp,
       );
-
-      final user = credential.user;
-      if (user != null) {
-        _currentUser = await _authService.getUserData(user.uid);
-        
-        if (_currentUser == null) {
-          _currentUser = UserModel(
-            id: user.uid,
-            phoneNumber: user.phoneNumber ?? '',
-            role: role,
-            createdAt: DateTime.now(),
-          );
-          await _authService.createUser(_currentUser!);
-        }
-
-        _isLoading = false;
-        notifyListeners();
-        return true;
-      }
+      return await _handleCredential(credential, role);
     } catch (e) {
       _error = e.toString();
+      _isLoading = false;
+      notifyListeners();
+      return false;
     }
+  }
 
-    _isLoading = false;
-    notifyListeners();
+  Future<bool> _handleCredential(dynamic credential, UserRole role) async {
+    final user = credential.user;
+    if (user != null) {
+      _currentUser = await _authService.getUserData(user.uid);
+      if (_currentUser == null) {
+        _currentUser = UserModel(
+          id: user.uid,
+          phoneNumber: user.phoneNumber ?? '',
+          role: role,
+          createdAt: DateTime.now(),
+        );
+        await _authService.createUser(_currentUser!);
+      }
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    }
     return false;
   }
 

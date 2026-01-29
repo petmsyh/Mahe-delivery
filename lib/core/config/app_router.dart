@@ -21,15 +21,9 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteConstants.splash:
-        return MaterialPageRoute(
-          builder: (_) => const SplashScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case RouteConstants.login:
-        return MaterialPageRoute(
-          builder: (_) => const LoginScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RouteConstants.otpVerification:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
@@ -38,73 +32,34 @@ class AppRouter {
             role: args['role'] as UserRole,
           ),
         );
-      
       case RouteConstants.customerHome:
-        return MaterialPageRoute(
-          builder: (_) => const CustomerHomeScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const CustomerHomeScreen());
       case RouteConstants.restaurantList:
-        return MaterialPageRoute(
-          builder: (_) => const RestaurantListScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const RestaurantListScreen());
       case RouteConstants.cart:
-        return MaterialPageRoute(
-          builder: (_) => const CartScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const CartScreen());
       case RouteConstants.orderHistory:
-        return MaterialPageRoute(
-          builder: (_) => const OrderHistoryScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const OrderHistoryScreen());
       case RouteConstants.customerProfile:
-        return MaterialPageRoute(
-          builder: (_) => const ProfileScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case RouteConstants.vendorHome:
-        return MaterialPageRoute(
-          builder: (_) => const VendorHomeScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const VendorHomeScreen());
       case RouteConstants.menuManagement:
-        return MaterialPageRoute(
-          builder: (_) => const MenuManagementScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const MenuManagementScreen());
       case RouteConstants.riderHome:
-        return MaterialPageRoute(
-          builder: (_) => const RiderHomeScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const RiderHomeScreen());
       case RouteConstants.adminHome:
-        return MaterialPageRoute(
-          builder: (_) => const AdminHomeScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const AdminHomeScreen());
       case RouteConstants.adminUsers:
-        return MaterialPageRoute(
-          builder: (_) => const AdminUsersScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const AdminUsersScreen());
       case RouteConstants.adminVendors:
-        return MaterialPageRoute(
-          builder: (_) => const AdminVendorsScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const AdminVendorsScreen());
       case RouteConstants.adminConfig:
-        return MaterialPageRoute(
-          builder: (_) => const AdminConfigScreen(),
-        );
-      
+        return MaterialPageRoute(builder: (_) => const AdminConfigScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
+            body: Center(child: Text('No route defined for ${settings.name}')),
           ),
         );
     }

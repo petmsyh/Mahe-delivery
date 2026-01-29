@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/route_constants.dart';
 import '../../../core/constants/user_role.dart';
 import '../../../core/utils/validators.dart';
+import '../../../core/utils/route_navigator.dart';
 import '../../../shared/providers/auth_provider.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
@@ -32,15 +32,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   Future<void> _verifyOTP() async {
     if (_formKey.currentState!.validate()) {
       final authProvider = context.read<AuthProvider>();
-      final success = await authProvider.verifyOTP(
-        _otpController.text,
-        widget.role,
-      );
+      final success = await authProvider.verifyOTP(_otpController.text, widget.role);
 
       if (!mounted) return;
 
       if (success) {
-        _navigateBasedOnRole();
+        RouteNavigator.navigateBasedOnRole(context, authProvider.userRole);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -50,35 +47,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         );
       }
     }
-  }
-
-  void _navigateBasedOnRole() {
-    final role = context.read<AuthProvider>().userRole;
-    String route;
-
-    switch (role) {
-      case UserRole.customer:
-        route = RouteConstants.customerHome;
-        break;
-      case UserRole.vendor:
-        route = RouteConstants.vendorHome;
-        break;
-      case UserRole.rider:
-        route = RouteConstants.riderHome;
-        break;
-      case UserRole.admin:
-      case UserRole.superAdmin:
-        route = RouteConstants.adminHome;
-        break;
-      default:
-        route = RouteConstants.customerHome;
-    }
-
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      route,
-      (route) => false,
-    );
   }
 
   @override
@@ -95,19 +63,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 40),
-                const Text(
-                  'Enter Verification Code',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const Text('Enter Verification Code',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
-                Text(
-                  'We sent a code to ${widget.phoneNumber}',
+                Text('We sent a code to ${widget.phoneNumber}',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.grey),
-                ),
+                  style: const TextStyle(color: Colors.grey)),
                 const SizedBox(height: 40),
                 TextFormField(
                   controller: _otpController,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../core/constants/route_constants.dart';
-import '../../../shared/providers/auth_provider.dart';
+import '../../../shared/widgets/stat_card.dart';
 
 class VendorHomeScreen extends StatelessWidget {
   const VendorHomeScreen({super.key});
@@ -26,23 +25,11 @@ class VendorHomeScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(
-                  child: _buildStatCard(
-                    'Today\'s Orders',
-                    '0',
-                    Icons.shopping_bag,
-                    Colors.blue,
-                  ),
-                ),
+                Expanded(child: StatCard('Today\'s Orders', '0', 
+                  Icons.shopping_bag, Colors.blue)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _buildStatCard(
-                    'Revenue',
-                    '\$0',
-                    Icons.attach_money,
-                    Colors.green,
-                  ),
-                ),
+                Expanded(child: StatCard('Revenue', '\$0', 
+                  Icons.attach_money, Colors.green)),
               ],
             ),
             const SizedBox(height: 20),
@@ -78,41 +65,6 @@ class VendorHomeScreen extends StatelessWidget {
                   Navigator.pushNamed(context, RouteConstants.vendorReports);
                 },
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStatCard(
-    String title,
-    String value,
-    IconData icon,
-    Color color,
-  ) {
-    return Card(
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Icon(icon, size: 32, color: color),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
-              textAlign: TextAlign.center,
             ),
           ],
         ),

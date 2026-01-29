@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/route_constants.dart';
+import '../../../shared/widgets/stat_card.dart';
+import '../../../shared/widgets/rider_status_card.dart';
 
 class RiderHomeScreen extends StatelessWidget {
   const RiderHomeScreen({super.key});
@@ -22,89 +24,25 @@ class RiderHomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Card(
-              color: Colors.green[50],
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Status',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Container(
-                              width: 12,
-                              height: 12,
-                              decoration: const BoxDecoration(
-                                color: Colors.green,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            const Text(
-                              'Online',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Switch(
-                      value: true,
-                      onChanged: (value) {},
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            RiderStatusCard(isOnline: true, onStatusChanged: (value) {}),
             const SizedBox(height: 20),
             Row(
               children: [
-                Expanded(
-                  child: _buildStatCard(
-                    'Today\'s Deliveries',
-                    '0',
-                    Icons.delivery_dining,
-                  ),
-                ),
+                Expanded(child: StatCard('Today\'s Deliveries', '0', 
+                  Icons.delivery_dining, Colors.orange)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _buildStatCard(
-                    'Earnings',
-                    '\$0',
-                    Icons.attach_money,
-                  ),
-                ),
+                Expanded(child: StatCard('Earnings', '\$0', 
+                  Icons.attach_money, Colors.orange)),
               ],
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Available Deliveries',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('Available Deliveries',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Expanded(
               child: Center(
-                child: Text(
-                  'No available deliveries',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 16,
-                  ),
-                ),
+                child: Text('No available deliveries',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 16)),
               ),
             ),
           ],
@@ -133,36 +71,6 @@ class RiderHomeScreen extends StatelessWidget {
             Navigator.pushNamed(context, RouteConstants.riderEarnings);
           }
         },
-      ),
-    );
-  }
-
-  Widget _buildStatCard(String title, String value, IconData icon) {
-    return Card(
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Icon(icon, size: 32, color: Colors.orange),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
       ),
     );
   }
