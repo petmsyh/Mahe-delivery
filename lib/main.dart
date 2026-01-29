@@ -5,6 +5,7 @@ import 'core/config/app_theme.dart';
 import 'core/config/app_router.dart';
 import 'core/constants/route_constants.dart';
 import 'shared/providers/auth_provider.dart';
+import 'shared/providers/cart_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
       ],
       child: MaterialApp(
         title: 'Mahe Delivery',

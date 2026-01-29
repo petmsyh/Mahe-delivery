@@ -5,6 +5,10 @@ import '../../features/auth/presentation/splash_screen.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/otp_verification_screen.dart';
 import '../../features/customer/presentation/customer_home_screen.dart';
+import '../../features/customer/presentation/restaurant_list_screen.dart';
+import '../../features/customer/presentation/cart_screen.dart';
+import '../../features/customer/presentation/order_history_screen.dart';
+import '../../features/customer/presentation/profile_screen.dart';
 import '../../features/vendor/presentation/vendor_home_screen.dart';
 import '../../features/rider/presentation/rider_home_screen.dart';
 import '../../features/admin/presentation/admin_home_screen.dart';
@@ -34,6 +38,26 @@ class AppRouter {
       case RouteConstants.customerHome:
         return MaterialPageRoute(
           builder: (_) => const CustomerHomeScreen(),
+        );
+      
+      case RouteConstants.restaurantList:
+        return MaterialPageRoute(
+          builder: (_) => const RestaurantListScreen(),
+        );
+      
+      case RouteConstants.cart:
+        return MaterialPageRoute(
+          builder: (_) => const CartScreen(),
+        );
+      
+      case RouteConstants.orderHistory:
+        return MaterialPageRoute(
+          builder: (_) => const OrderHistoryScreen(),
+        );
+      
+      case RouteConstants.customerProfile:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileScreen(),
         );
       
       case RouteConstants.vendorHome:
