@@ -25,11 +25,13 @@ class VendorHomeScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(child: StatCard('Today\'s Orders', '0', 
-                  Icons.shopping_bag, Colors.blue)),
+                Expanded(child: StatCard(
+                  title: 'Today\'s Orders', value: '0', 
+                  icon: Icons.shopping_bag, color: Colors.blue)),
                 const SizedBox(width: 12),
-                Expanded(child: StatCard('Revenue', '\$0', 
-                  Icons.attach_money, Colors.green)),
+                Expanded(child: StatCard(
+                  title: 'Revenue', value: '\$0', 
+                  icon: Icons.attach_money, color: Colors.green)),
               ],
             ),
             const SizedBox(height: 20),

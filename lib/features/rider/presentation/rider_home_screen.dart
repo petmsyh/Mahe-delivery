@@ -28,11 +28,13 @@ class RiderHomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             Row(
               children: [
-                Expanded(child: StatCard('Today\'s Deliveries', '0', 
-                  Icons.delivery_dining, Colors.orange)),
+                Expanded(child: StatCard(
+                  title: 'Today\'s Deliveries', value: '0', 
+                  icon: Icons.delivery_dining, color: Colors.orange)),
                 const SizedBox(width: 12),
-                Expanded(child: StatCard('Earnings', '\$0', 
-                  Icons.attach_money, Colors.orange)),
+                Expanded(child: StatCard(
+                  title: 'Earnings', value: '\$0', 
+                  icon: Icons.attach_money, color: Colors.orange)),
               ],
             ),
             const SizedBox(height: 20),
