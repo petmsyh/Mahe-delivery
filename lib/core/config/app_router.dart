@@ -10,8 +10,12 @@ import '../../features/customer/presentation/cart_screen.dart';
 import '../../features/customer/presentation/order_history_screen.dart';
 import '../../features/customer/presentation/profile_screen.dart';
 import '../../features/vendor/presentation/vendor_home_screen.dart';
+import '../../features/vendor/presentation/menu_management_screen.dart';
 import '../../features/rider/presentation/rider_home_screen.dart';
 import '../../features/admin/presentation/admin_home_screen.dart';
+import '../../features/admin/presentation/admin_users_screen.dart';
+import '../../features/admin/presentation/admin_vendors_screen.dart';
+import '../../features/admin/presentation/admin_config_screen.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -65,6 +69,11 @@ class AppRouter {
           builder: (_) => const VendorHomeScreen(),
         );
       
+      case RouteConstants.menuManagement:
+        return MaterialPageRoute(
+          builder: (_) => const MenuManagementScreen(),
+        );
+      
       case RouteConstants.riderHome:
         return MaterialPageRoute(
           builder: (_) => const RiderHomeScreen(),
@@ -73,6 +82,21 @@ class AppRouter {
       case RouteConstants.adminHome:
         return MaterialPageRoute(
           builder: (_) => const AdminHomeScreen(),
+        );
+      
+      case RouteConstants.adminUsers:
+        return MaterialPageRoute(
+          builder: (_) => const AdminUsersScreen(),
+        );
+      
+      case RouteConstants.adminVendors:
+        return MaterialPageRoute(
+          builder: (_) => const AdminVendorsScreen(),
+        );
+      
+      case RouteConstants.adminConfig:
+        return MaterialPageRoute(
+          builder: (_) => const AdminConfigScreen(),
         );
       
       default:
