@@ -30,22 +30,16 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   }
 
   Future<void> _verifyOTP() async {
-    if (_formKey.currentState!.validate()) {
-      final authProvider = context.read<AuthProvider>();
-      final success = await authProvider.verifyOTP(_otpController.text, widget.role);
-
-      if (!mounted) return;
-
-      if (success) {
-        RouteNavigator.navigateBasedOnRole(context, authProvider.userRole);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(authProvider.error ?? 'Verification failed'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
+    if (!_formKey.currentState!.validate()) return;
+    final authProvider = context.read<AuthProvider>();
+    final success = await authProvider.verifyOTP(_otpController.text, widget.role);
+    if (!mounted) return;
+    if (success) {
+      RouteNavigator.navigateBasedOnRole(context, authProvider.userRole);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(authProvider.error ?? 'Verification failed'),
+          backgroundColor: Colors.red));
     }
   }
 
@@ -83,13 +77,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 const SizedBox(height: 30),
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, child) {
-                    if (authProvider.isLoading) {
-                      return const CircularProgressIndicator();
-                    }
+                    if (authProvider.isLoading) return const CircularProgressIndicator();
                     return ElevatedButton(
-                      onPressed: _verifyOTP,
-                      child: const Text('Verify'),
-                    );
+                      onPressed: _verifyOTP, child: const Text('Verify'));
                   },
                 ),
               ],

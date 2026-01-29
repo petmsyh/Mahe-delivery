@@ -19,46 +19,36 @@ class AuthProvider extends ChangeNotifier {
   UserRole? get userRole => _currentUser?.role;
 
   Future<void> initialize() async {
-    _isLoading = true;
-    notifyListeners();
-
+    _setLoadingState(true);
     final user = _authService.currentUser;
-    if (user != null) {
-      _currentUser = await _authService.getUserData(user.uid);
-    }
-
-    _isLoading = false;
-    notifyListeners();
+    if (user != null) _currentUser = await _authService.getUserData(user.uid);
+    _setLoadingState(false);
   }
 
   Future<void> sendOTP(String phoneNumber) async {
-    _isLoading = true;
-    _error = null;
-    notifyListeners();
-
+    _setLoadingState(true);
     try {
-      await _authService.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        codeSent: _onCodeSent,
-        verificationFailed: _onVerificationFailed,
-      );
+      await _authService.verifyPhoneNumber(phoneNumber: phoneNumber,
+        codeSent: _onCodeSent, verificationFailed: _onVerificationFailed);
     } catch (e) {
       _error = e.toString();
-      _isLoading = false;
-      notifyListeners();
+      _setLoadingState(false);
     }
+  }
+
+  void _setLoadingState(bool loading) {
+    _isLoading = loading;
+    notifyListeners();
   }
 
   void _onCodeSent(String verificationId) {
     _verificationId = verificationId;
-    _isLoading = false;
-    notifyListeners();
+    _setLoadingState(false);
   }
 
   void _onVerificationFailed(String error) {
     _error = error;
-    _isLoading = false;
-    notifyListeners();
+    _setLoadingState(false);
   }
 
   Future<bool> verifyOTP(String otp, UserRole role) async {
@@ -67,43 +57,32 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     }
-
-    _isLoading = true;
-    _error = null;
-    notifyListeners();
-
+    _setLoadingState(true);
     try {
       final credential = await _authService.verifyOTP(
-        verificationId: _verificationId!,
-        smsCode: otp,
-      );
+        verificationId: _verificationId!, smsCode: otp);
       return await _handleCredential(credential, role);
     } catch (e) {
       _error = e.toString();
-      _isLoading = false;
-      notifyListeners();
+      _setLoadingState(false);
       return false;
     }
   }
 
   Future<bool> _handleCredential(dynamic credential, UserRole role) async {
     final user = credential.user;
-    if (user != null) {
-      _currentUser = await _authService.getUserData(user.uid);
-      if (_currentUser == null) {
-        _currentUser = UserModel(
-          id: user.uid,
-          phoneNumber: user.phoneNumber ?? '',
-          role: role,
-          createdAt: DateTime.now(),
-        );
-        await _authService.createUser(_currentUser!);
-      }
-      _isLoading = false;
-      notifyListeners();
-      return true;
+    if (user == null) return false;
+    _currentUser = await _authService.getUserData(user.uid);
+    if (_currentUser == null) {
+      _currentUser = UserModel(
+        id: user.uid,
+        phoneNumber: user.phoneNumber ?? '',
+        role: role,
+        createdAt: DateTime.now());
+      await _authService.createUser(_currentUser!);
     }
-    return false;
+    _setLoadingState(false);
+    return true;
   }
 
   Future<void> signOut() async {

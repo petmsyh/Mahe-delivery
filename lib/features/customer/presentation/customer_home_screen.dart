@@ -40,13 +40,8 @@ class CustomerHomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Categories',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('Categories',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             SizedBox(
               height: 100,
@@ -64,34 +59,19 @@ class CustomerHomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Nearby Restaurants',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const Text('Nearby Restaurants',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteConstants.restaurantList,
-                    );
-                  },
-                  child: const Text('See All'),
-                ),
+                  onPressed: () =>
+                    Navigator.pushNamed(context, RouteConstants.restaurantList),
+                  child: const Text('See All')),
               ],
             ),
             const SizedBox(height: 10),
             Expanded(
               child: Center(
-                child: Text(
-                  'No restaurants available yet',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 16,
-                  ),
-                ),
+                child: Text('No restaurants available yet',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 16)),
               ),
             ),
           ],
@@ -100,18 +80,9 @@ class CustomerHomeScreen extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Orders',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Orders'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         onTap: (index) {
           if (index == 1) {
